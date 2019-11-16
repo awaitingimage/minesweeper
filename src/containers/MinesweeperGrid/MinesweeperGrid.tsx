@@ -29,23 +29,20 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     let currentMines: number[][] = [];
 
     while (currentMines.length < this.props.numOfMines) {
-      let newCoordinate = this.generateRandomCoordinate(this.props.numOfColumns, this.props.numOfRows);
+      let newCoordinate = this.generateRandomCoordinate(this.props.numOfRows, this.props.numOfColumns);
       let includesMine = currentMines.filter(coordinate => newCoordinate.toString() === coordinate.toString());
 
       if (includesMine.length < 1) {
         currentMines.push(newCoordinate);
       }
     }
-    //console.log(currentMines);
     this.populateMines(currentMines);
   };
 
   populateMines = (mineCoordinates: number[][]) => {
     let grid = this.cloneGrid();
     mineCoordinates.forEach(coordinates => {
-      //console.log(coordinates);
-      //grid[coordinates[0]][coordinates[1]] = -1;
-      console.log(grid);
+      grid[coordinates[0]][coordinates[1]] = -1;
     });
     this.setState({ grid }, this.generateClues);
   };
@@ -55,9 +52,10 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     grid.forEach((row, rowIndex) => {
       row.forEach((square, colIndex) => {
         if (square < 0) return;
-        //this.checkNeighbours(rowIndex, colIndex);
+        grid[rowIndex][colIndex] = this.checkNeighbours(rowIndex, colIndex);
       });
     });
+    this.setState({ grid });
   };
 
   cloneGrid = () => {
@@ -82,7 +80,7 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
         }
       }
     }
-    console.log(numNeighbourMines);
+    return numNeighbourMines;
   };
 
   generateRandomCoordinate = (colMax: number, rowMax: number): number[] => {
