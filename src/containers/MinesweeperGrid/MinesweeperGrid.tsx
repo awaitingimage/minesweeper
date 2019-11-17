@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styles from './MinesweeperGrid.module.css';
 
 export interface MinesweeperGridProps {
   numOfRows: number;
@@ -93,15 +94,22 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     this.generateGrid();
   }
 
+  componentDidUpdate(prevProps: MinesweeperGridProps) {
+    if (JSON.stringify(this.props) !== JSON.stringify(prevProps)) {
+      console.log('regenerate grid');
+      this.generateGrid();
+    }
+  }
+
   render() {
     return (
-      <table>
+      <table className={styles.grid}>
         <tbody>
           {this.state.grid.map((row, index) => {
             return (
               <tr key={index}>
                 {row.map((square, index) => (
-                  <td key={index}>{square}</td>
+                  <td key={index}>{square < 0 ? 'X' : square}</td>
                 ))}
               </tr>
             );

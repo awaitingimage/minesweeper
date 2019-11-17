@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-import './containers/MinesweeperGrid';
-import MinesweeperGrid from './containers/MinesweeperGrid';
+import Game from './containers/Game';
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <MinesweeperGrid numOfRows={7} numOfColumns={5} numOfMines={15}></MinesweeperGrid>
+      <Game></Game>
     </div>
   );
 };
