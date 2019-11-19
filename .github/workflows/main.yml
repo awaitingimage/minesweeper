@@ -11,10 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Setup Node.js for use with actions
-      uses: actions/setup-node@v1.1.0
-    - name: yarn install, yarn test, yarn build
-      run: |
-        yarn install
-        yarn test
-        yarn build
+      - uses: actions/checkout@v1
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm install
+      - run: npm test
