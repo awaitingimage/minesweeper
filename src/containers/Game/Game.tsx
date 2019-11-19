@@ -66,7 +66,7 @@ class Game extends React.Component<GameProps, GameState> {
             id="mines"
             type="number"
             min="0"
-            max="50"
+            max={this.state.numOfColumns * this.state.numOfRows}
             name="numOfMines"
             value={this.state.numOfMines}
           />
@@ -77,7 +77,6 @@ class Game extends React.Component<GameProps, GameState> {
           numOfColumns={this.state.gameColumns}
           numOfMines={this.state.gameMines}
         ></MinesweeperGrid>
-        ;
       </>
     );
   }

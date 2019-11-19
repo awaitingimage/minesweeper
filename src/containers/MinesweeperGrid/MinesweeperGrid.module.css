@@ -2,4 +2,9 @@
   display: flex;
   justify-content: center;
   margin: 30px;
+  border-spacing: 0px;
+}
+
+.grid td {
+  border: 2px solid blue;
 }

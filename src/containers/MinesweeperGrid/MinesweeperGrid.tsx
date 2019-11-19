@@ -1,5 +1,6 @@
 import * as React from 'react';
 import styles from './MinesweeperGrid.module.css';
+import Tile from '../../components/Tile';
 
 export interface MinesweeperGridProps {
   numOfRows: number;
@@ -9,21 +10,25 @@ export interface MinesweeperGridProps {
 
 export interface MinesweeperGridState {
   grid: number[][];
+  numOfLoops: number;
 }
 
 class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperGridState> {
-  state = { grid: [] as number[][] };
+  state = { grid: [] as number[][], numOfLoops: 0 };
+  // loops for 50x50x50 is: 105430
 
   generateGrid = () => {
     let grid = [];
+    let numOfLoops = this.state.numOfLoops;
     for (let rowIndex = 0; rowIndex < this.props.numOfRows; rowIndex++) {
       let row = [];
       for (let colIndex = 0; colIndex < this.props.numOfColumns; colIndex++) {
         row.push(0);
+        numOfLoops++;
       }
       grid.push(row);
     }
-    this.setState({ grid }, this.generateMines);
+    this.setState({ grid, numOfLoops }, this.generateMines);
   };
 
   generateMines = () => {
@@ -50,13 +55,15 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
 
   generateClues = () => {
     let grid = this.cloneGrid();
+    let numOfLoops = this.state.numOfLoops;
     grid.forEach((row, rowIndex) => {
       row.forEach((square, colIndex) => {
+        numOfLoops += 9;
         if (square < 0) return;
         grid[rowIndex][colIndex] = this.checkNeighbours(rowIndex, colIndex);
       });
     });
-    this.setState({ grid });
+    this.setState({ grid, numOfLoops });
   };
 
   cloneGrid = () => {
@@ -105,11 +112,14 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     return (
       <table className={styles.grid}>
         <tbody>
-          {this.state.grid.map((row, index) => {
+          {this.state.grid.map((row, rowIndex) => {
             return (
-              <tr key={index}>
-                {row.map((square, index) => (
-                  <td key={index}>{square < 0 ? 'X' : square}</td>
+              <tr key={`${this.props.numOfColumns}-${this.props.numOfRows}-${rowIndex}`}>
+                {row.map((tile, colIndex) => (
+                  <Tile
+                    key={`${this.props.numOfColumns}-${this.props.numOfRows}-${rowIndex}-${colIndex}`}
+                    tileValue={tile}
+                  />
                 ))}
               </tr>
             );
