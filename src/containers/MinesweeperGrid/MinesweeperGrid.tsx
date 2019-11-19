@@ -10,12 +10,14 @@ export interface MinesweeperGridProps {
 
 export interface MinesweeperGridState {
   grid: number[][];
+  currentMines: number[][];
   numOfLoops: number;
 }
 
 class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperGridState> {
-  state = { grid: [] as number[][], numOfLoops: 0 };
+  state = { grid: [] as number[][], currentMines: [] as number[][], numOfLoops: 0 };
   // loops for 50x50x50 is: 105430
+  // new loops for 50x50x50 with addcluesaroundmines: 3020
 
   generateGrid = () => {
     let grid = [];
@@ -42,12 +44,12 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
         currentMines.push(newCoordinate);
       }
     }
-    this.populateMines(currentMines);
+    this.setState({ currentMines }, this.populateMines);
   };
 
-  populateMines = (mineCoordinates: number[][]) => {
+  populateMines = () => {
     let grid = this.cloneGrid();
-    mineCoordinates.forEach(coordinates => {
+    this.state.currentMines.forEach(coordinates => {
       grid[coordinates[0]][coordinates[1]] = -1;
     });
     this.setState({ grid }, this.generateClues);
@@ -56,13 +58,17 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
   generateClues = () => {
     let grid = this.cloneGrid();
     let numOfLoops = this.state.numOfLoops;
-    grid.forEach((row, rowIndex) => {
-      row.forEach((square, colIndex) => {
-        numOfLoops += 9;
-        if (square < 0) return;
-        grid[rowIndex][colIndex] = this.checkNeighbours(rowIndex, colIndex);
-      });
+    this.state.currentMines.forEach(coordinates => {
+      numOfLoops += 9;
+      grid = this.addMineToClues(coordinates[0], coordinates[1], grid);
     });
+    // grid.forEach((row, rowIndex) => {
+    //   row.forEach((square, colIndex) => {
+    //     numOfLoops += 9;
+    //     if (square < 0) return;
+    //     grid[rowIndex][colIndex] = this.checkNeighbours(rowIndex, colIndex);
+    //   });
+    // });
     this.setState({ grid, numOfLoops });
   };
 
@@ -70,6 +76,30 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     return this.state.grid.map(arr => arr.slice());
   };
 
+  addMineToClues = (rowIndex: number, colIndex: number, grid: number[][]) => {
+    for (let y = -1; y <= 1; y++) {
+      for (let x = -1; x <= 1; x++) {
+        let yIndex = rowIndex + y;
+        let xIndex = colIndex + x;
+        let samePosition = xIndex === rowIndex && yIndex === colIndex;
+        if (
+          xIndex >= 0 &&
+          xIndex < this.props.numOfRows &&
+          yIndex >= 0 &&
+          yIndex < this.props.numOfColumns &&
+          !samePosition
+        ) {
+          let mine = grid[yIndex][xIndex] < 0;
+          if (!mine) {
+            grid[yIndex][xIndex]++;
+          }
+        }
+      }
+    }
+    return grid;
+  };
+
+  // No longer needed as now more efficient with addMineToClues
   checkNeighbours = (rowIndex: number, colIndex: number) => {
     let numNeighbourMines = 0;
     for (let x = -1; x <= 1; x++) {
