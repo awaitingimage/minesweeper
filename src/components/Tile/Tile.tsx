@@ -2,24 +2,41 @@ import * as React from 'react';
 import styles from './Tile.module.css';
 
 export interface TileProps {
-  tileValue: number;
+  tileData: interfaceTile;
+  onClick: (tile: interfaceTile) => void;
 }
 
-export interface TileState {
-  shown: boolean;
+export interface interfaceTile {
+  value: number;
+  hidden: boolean;
+  mine: boolean;
+  flagged: boolean;
+  x: number;
+  y: number;
 }
+
+export interface TileState {}
 
 class Tile extends React.Component<TileProps, TileState> {
-  state = { shown: false };
-
   onClick = (event: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
-    this.setState({ shown: true });
+    event.preventDefault();
+    let tileUpdate = { ...this.props.tileData } as interfaceTile;
+    if (event.type === 'contextmenu') {
+      tileUpdate.flagged = !tileUpdate.flagged;
+    } else {
+      tileUpdate.hidden = !tileUpdate.hidden;
+    }
+    this.props.onClick(tileUpdate);
   };
+
   render() {
-    const style = !this.state.shown ? styles.hiddenTile : null;
+    const hidden = this.props.tileData.hidden ? styles.hiddenTile : null;
+    let tileValue = this.props.tileData.mine ? 'X' : this.props.tileData.value;
+    tileValue = this.props.tileData.hidden ? ' ' : tileValue;
+    const flagged = this.props.tileData.flagged ? styles.flagged : null;
     return (
-      <td className={`${style}`} onClick={this.onClick}>
-        {this.props.tileValue < 0 ? 'X' : this.props.tileValue}
+      <td className={`${styles.tile} ${hidden} ${flagged}`} onClick={this.onClick} onContextMenu={this.onClick}>
+        {tileValue}
       </td>
     );
   }
