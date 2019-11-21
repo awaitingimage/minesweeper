@@ -3,7 +3,7 @@ import styles from './Tile.module.css';
 
 export interface TileProps {
   tileData: interfaceTile;
-  onClick: (tile: interfaceTile) => void;
+  onClick: (tile: interfaceTile, explosion: boolean) => void;
 }
 
 export interface interfaceTile {
@@ -20,13 +20,16 @@ export interface TileState {}
 class Tile extends React.Component<TileProps, TileState> {
   onClick = (event: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>) => {
     event.preventDefault();
+    if (!this.props.tileData.hidden) return;
     let tileUpdate = { ...this.props.tileData } as interfaceTile;
+    let explosion = false;
     if (event.type === 'contextmenu') {
       tileUpdate.flagged = !tileUpdate.flagged;
     } else {
-      tileUpdate.hidden = !tileUpdate.hidden;
+      explosion = tileUpdate.mine;
+      tileUpdate.hidden = false;
     }
-    this.props.onClick(tileUpdate);
+    this.props.onClick(tileUpdate, explosion);
   };
 
   render() {

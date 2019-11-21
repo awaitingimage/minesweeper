@@ -13,12 +13,12 @@ export interface GameState {
 
 class Game extends React.Component<GameProps, GameState> {
   state = {
-    numOfRows: 5,
-    numOfColumns: 5,
-    numOfMines: 5,
-    gameRows: 5,
-    gameColumns: 5,
-    gameMines: 5,
+    numOfRows: 15,
+    numOfColumns: 15,
+    numOfMines: 15,
+    gameRows: 15,
+    gameColumns: 15,
+    gameMines: 15,
     gameDifficulty: 'easy',
   };
 

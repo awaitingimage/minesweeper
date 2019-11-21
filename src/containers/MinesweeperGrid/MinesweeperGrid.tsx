@@ -12,10 +12,11 @@ export interface MinesweeperGridState {
   grid: iTile[][];
   currentMines: number[][];
   numOfLoops: number;
+  gameFinished: boolean;
 }
 
 class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperGridState> {
-  state = { grid: [] as iTile[][], currentMines: [] as number[][], numOfLoops: 0 };
+  state = { grid: [] as iTile[][], currentMines: [] as number[][], numOfLoops: 0, gameFinished: false };
 
   generateGrid = () => {
     let grid = [];
@@ -94,6 +95,33 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     return grid;
   };
 
+  revealClueNeighbours = (grid: iTile[][], currentTile: iTile) => {
+    for (let y = -1; y <= 1; y++) {
+      for (let x = -1; x <= 1; x++) {
+        const neighbourX = currentTile.x + x;
+        const neighbourY = currentTile.y + y;
+        let samePosition = neighbourX === currentTile.y && neighbourY === currentTile.x;
+        if (
+          neighbourX < 0 ||
+          neighbourX >= this.props.numOfColumns ||
+          neighbourY < 0 ||
+          neighbourY >= this.props.numOfRows ||
+          samePosition
+        ) {
+          return grid;
+        }
+        let neighbourTile = grid[neighbourY][neighbourX];
+        if (neighbourTile.value >= 0 && neighbourTile.hidden && !neighbourTile.mine) {
+          neighbourTile.hidden = false;
+          grid[neighbourY][neighbourX] = neighbourTile;
+          if (neighbourTile.value === 0) grid = this.revealClueNeighbours(grid, neighbourTile);
+        }
+      }
+    }
+
+    return grid;
+  };
+
   generateRandomCoordinate = (colMax: number, rowMax: number): number[] => {
     let y = Math.floor(Math.random() * rowMax);
     let x = Math.floor(Math.random() * colMax);
@@ -111,10 +139,14 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
     }
   }
 
-  tileClicked = (tile: iTile) => {
+  tileClicked = (tile: iTile, explosion = false) => {
     console.log(tile);
+    if (explosion) console.log('dead');
     let grid = this.cloneGrid();
     grid[tile.y][tile.x] = tile;
+    if (tile.value === 0) {
+      grid = this.revealClueNeighbours(grid, tile);
+    }
     this.setState({ grid });
   };
 
