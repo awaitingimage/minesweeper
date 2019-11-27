@@ -1,5 +1,6 @@
 import * as React from 'react';
 import MinesweeperGrid from '../MinesweeperGrid';
+import GameForm from '../GameForm';
 
 export interface GameProps {}
 
@@ -39,39 +40,13 @@ class Game extends React.Component<GameProps, GameState> {
   render() {
     return (
       <>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="rows">Number of rows:</label>
-          <input
-            onChange={this.handleChange}
-            id="rows"
-            type="number"
-            min="0"
-            max="50"
-            name="numOfRows"
-            value={this.state.numOfRows}
-          />
-          <label htmlFor="columns">Number of columns:</label>
-          <input
-            onChange={this.handleChange}
-            id="columns"
-            type="number"
-            min="0"
-            max="50"
-            name="numOfColumns"
-            value={this.state.numOfColumns}
-          />
-          <label htmlFor="mines">Number of mines:</label>
-          <input
-            onChange={this.handleChange}
-            id="mines"
-            type="number"
-            min="0"
-            max={this.state.numOfColumns * this.state.numOfRows}
-            name="numOfMines"
-            value={this.state.numOfMines}
-          />
-          <input type="submit" value="Submit" />
-        </form>
+        <GameForm
+          numOfRows={this.state.numOfRows}
+          numOfColumns={this.state.numOfColumns}
+          numOfMines={this.state.numOfMines}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
         <MinesweeperGrid
           numOfRows={this.state.gameRows}
           numOfColumns={this.state.gameColumns}

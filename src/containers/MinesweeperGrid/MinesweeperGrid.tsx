@@ -79,7 +79,7 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
         });
         let yIndex = rowIndex + y;
         let xIndex = colIndex + x;
-        let samePosition = xIndex === rowIndex && yIndex === colIndex;
+        let samePosition = xIndex === colIndex && yIndex === rowIndex;
         if (
           xIndex >= 0 &&
           xIndex < this.props.numOfColumns &&
