@@ -1,6 +1,6 @@
 import * as React from 'react';
 import MinesweeperGrid from '../MinesweeperGrid';
-import GameForm from '../GameForm';
+import GameForm from '../../components/GameForm';
 
 export interface GameProps {}
 
