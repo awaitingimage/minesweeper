@@ -3,7 +3,7 @@ import styles from './Tile.module.css';
 
 export interface TileProps {
   tileData: interfaceTile;
-  onClick: (tile: interfaceTile, explosion: boolean) => void;
+  onClick: (tile: interfaceTile, explosion: boolean, checkNeighbours: boolean) => void;
 }
 
 export interface interfaceTile {
@@ -23,13 +23,16 @@ class Tile extends React.Component<TileProps, TileState> {
     if (!this.props.tileData.hidden) return;
     let tileUpdate = { ...this.props.tileData } as interfaceTile;
     let explosion = false;
+    let checkNeighbours = false;
     if (event.type === 'contextmenu') {
       tileUpdate.flagged = !tileUpdate.flagged;
     } else {
+      if (tileUpdate.flagged) return;
       explosion = tileUpdate.mine;
       tileUpdate.hidden = false;
+      if (tileUpdate.value === 0 && !tileUpdate.mine) checkNeighbours = true;
     }
-    this.props.onClick(tileUpdate, explosion);
+    this.props.onClick(tileUpdate, explosion, checkNeighbours);
   };
 
   render() {

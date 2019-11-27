@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`to match snapshot 1`] = `
+<table
+  className="grid"
+>
+  <tbody>
+    <tr
+      key="4-4-0"
+    >
+      <Tile
+        key="4-4-0-0"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 3,
+            "x": 0,
+            "y": 0,
+          }
+        }
+      />
+      <Tile
+        key="4-4-0-1"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": true,
+            "value": 0,
+            "x": 1,
+            "y": 0,
+          }
+        }
+      />
+      <Tile
+        key="4-4-0-2"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 2,
+            "x": 2,
+            "y": 0,
+          }
+        }
+      />
+      <Tile
+        key="4-4-0-3"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 0,
+            "x": 3,
+            "y": 0,
+          }
+        }
+      />
+    </tr>
+    <tr
+      key="4-4-1"
+    >
+      <Tile
+        key="4-4-1-0"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": true,
+            "value": 0,
+            "x": 0,
+            "y": 1,
+          }
+        }
+      />
+      <Tile
+        key="4-4-1-1"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": true,
+            "value": 0,
+            "x": 1,
+            "y": 1,
+          }
+        }
+      />
+      <Tile
+        key="4-4-1-2"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 3,
+            "x": 2,
+            "y": 1,
+          }
+        }
+      />
+      <Tile
+        key="4-4-1-3"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 1,
+            "x": 3,
+            "y": 1,
+          }
+        }
+      />
+    </tr>
+    <tr
+      key="4-4-2"
+    >
+      <Tile
+        key="4-4-2-0"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 2,
+            "x": 0,
+            "y": 2,
+          }
+        }
+      />
+      <Tile
+        key="4-4-2-1"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 3,
+            "x": 1,
+            "y": 2,
+          }
+        }
+      />
+      <Tile
+        key="4-4-2-2"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": true,
+            "value": 0,
+            "x": 2,
+            "y": 2,
+          }
+        }
+      />
+      <Tile
+        key="4-4-2-3"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 1,
+            "x": 3,
+            "y": 2,
+          }
+        }
+      />
+    </tr>
+    <tr
+      key="4-4-3"
+    >
+      <Tile
+        key="4-4-3-0"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 0,
+            "x": 0,
+            "y": 3,
+          }
+        }
+      />
+      <Tile
+        key="4-4-3-1"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 1,
+            "x": 1,
+            "y": 3,
+          }
+        }
+      />
+      <Tile
+        key="4-4-3-2"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 1,
+            "x": 2,
+            "y": 3,
+          }
+        }
+      />
+      <Tile
+        key="4-4-3-3"
+        onClick={[Function]}
+        tileData={
+          Object {
+            "flagged": false,
+            "hidden": true,
+            "mine": false,
+            "value": 1,
+            "x": 3,
+            "y": 3,
+          }
+        }
+      />
+    </tr>
+  </tbody>
+</table>
+`;
