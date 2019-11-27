@@ -6,6 +6,7 @@ export interface MinesweeperGridProps {
   numOfRows: number;
   numOfColumns: number;
   numOfMines: number;
+  gameNumber: number;
 }
 
 export interface MinesweeperGridState {
@@ -63,7 +64,7 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
   };
 
   cloneGrid = () => {
-    // look into immutability helpers https://reactjs.org/docs/update.html
+    // Could use immutability helpers https://reactjs.org/docs/update.html
     return this.state.grid.map(arr =>
       arr.map(obj => {
         return { ...obj };
@@ -144,10 +145,10 @@ class MinesweeperGrid extends React.Component<MinesweeperGridProps, MinesweeperG
         <tbody>
           {this.state.grid.map((row, rowIndex) => {
             return (
-              <tr key={`${this.props.numOfColumns}-${this.props.numOfRows}-${rowIndex}`}>
+              <tr key={`${this.props.gameNumber}-${rowIndex}`}>
                 {row.map((tile, colIndex) => (
                   <Tile
-                    key={`${this.props.numOfColumns}-${this.props.numOfRows}-${rowIndex}-${colIndex}`}
+                    key={`${this.props.gameNumber}-${rowIndex}-${colIndex}`}
                     tileData={tile}
                     onClick={this.tileClicked}
                   />

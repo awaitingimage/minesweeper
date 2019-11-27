@@ -9,6 +9,7 @@ export interface GameState {
   numOfColumns: number;
   numOfMines: number;
   gameDifficulty: string;
+  gameNumber: number;
   [key: string]: any;
 }
 
@@ -20,6 +21,7 @@ class Game extends React.Component<GameProps, GameState> {
     gameRows: 6,
     gameColumns: 6,
     gameMines: 10,
+    gameNumber: 1,
     gameDifficulty: 'easy',
   };
 
@@ -29,6 +31,7 @@ class Game extends React.Component<GameProps, GameState> {
       gameRows: this.state.numOfRows,
       gameColumns: this.state.numOfColumns,
       gameMines: this.state.numOfMines,
+      gameNumber: this.state.gameNumber + 1,
     });
   };
 
@@ -48,6 +51,7 @@ class Game extends React.Component<GameProps, GameState> {
           handleSubmit={this.handleSubmit}
         />
         <MinesweeperGrid
+          gameNumber={this.state.gameNumber}
           numOfRows={this.state.gameRows}
           numOfColumns={this.state.gameColumns}
           numOfMines={this.state.gameMines}

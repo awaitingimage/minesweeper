@@ -38,6 +38,7 @@ class Tile extends React.Component<TileProps, TileState> {
   render() {
     const hidden = this.props.tileData.hidden ? styles.hiddenTile : null;
     let tileValue = this.props.tileData.mine ? 'X' : this.props.tileData.value;
+    tileValue = tileValue === 0 ? ' ' : tileValue;
     tileValue = this.props.tileData.hidden ? ' ' : tileValue;
     const flagged = this.props.tileData.flagged ? styles.flagged : null;
     return (
